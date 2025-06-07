@@ -1,17 +1,28 @@
-# Use the KasmVNC Alpine base image
+# Start from KasmVNC Alpine base image
 FROM ghcr.io/linuxserver/baseimage-kasmvnc:alpine317
 
-# Install Chromium and any needed fonts
+# Install Chromium and required dependencies
 RUN apk add --no-cache \
     chromium \
     chromium-chromedriver \
-    ttf-freefont
+    ttf-freefont \
+    dbus-glib \
+    alsa-utils \
+    pulseaudio \
+    pulseaudio-alsa \
+    libxcomposite \
+    libxdamage \
+    libxrandr \
+    libxss \
+    libxtst \
+    xdg-utils
 
-# Environment variables to tune Chromium
+# Set environment variables
 ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV DISPLAY=:0
 
-# Expose KasmVNC port (default is 6901)
+# Expose VNC port
 EXPOSE 6901
 
-# Start Chromium inside the KasmVNC session
+# Start Chromium automatically in KasmVNC session
 CMD ["chromium-browser", "--no-sandbox", "--disable-gpu", "--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream", "--window-size=1280,720"]
