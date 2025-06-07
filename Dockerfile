@@ -1,4 +1,4 @@
-FROM kasmweb/ubuntu-jammy-chromium:1.15.0
+FROM kasmweb/chromium:1.15.0-rolling
 
 # Optional: install extra tools you need
 RUN apt-get update && apt-get install -y \
